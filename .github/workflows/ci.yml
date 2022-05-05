@@ -38,10 +38,3 @@ jobs:
           context: '{{defaultContext}}:worker'
           push: true
           tags: dkarter/multi-docker-worker:latest
-
-      - name: Build and push router
-        uses: docker/build-push-action@v2
-        with:
-          context: '{{defaultContext}}:nginx'
-          push: true
-          tags: dkarter/multi-docker-router:latest
