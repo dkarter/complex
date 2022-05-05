@@ -8,6 +8,9 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <header>
+          <h1>Fibonacci Calculator v2</h1>
+        </header>
         <div>
           <Route exact path="/" component={Fib} />
           <Route path="/otherpage" component={OtherPage} />
