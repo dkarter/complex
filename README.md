@@ -22,6 +22,15 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 Then visit https://localhost to view the app
 
 ### Setting up K8s dashboard (w/ Docker Desktop on macOS):
+For convenience, the user creation file is also available in the `extras` folder:
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+kubectl apply -f extras
+kubectl proxy # to start the server
+```
+
+Full instructions (which are subject to change) can be found here:
 https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/#deploying-the-dashboard-ui
 https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
 
