@@ -30,3 +30,10 @@ spec:
               # subfolder. Postgres is particular about this and will refuse
               # storing data at the volume mountPath directly
               subPath: postgres
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  # name of the key inside the secret
+                  key: POSTGRES_PASSWORD

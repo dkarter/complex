@@ -17,3 +17,31 @@ spec:
           image: dkarter/multi-docker-server
           ports:
             - containerPort: 5000
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip-service
+
+            - name: REDIS_PORT
+              value: '6379'
+
+            - name: PGUSER
+              # TODO: for production we should probably read this from secrets
+              value: posgres
+
+            - name: PGHOST
+              value: postgres-cluster-ip-service
+
+            - name: PGPORT
+              value: '5432'
+
+            - name: PGDATABASE
+              # TODO: for production we should probably read this from secret
+              value: postgres
+
+              # name of env var the app expects
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  # name of the key inside the secret
+                  key: POSTGRES_PASSWORD
