@@ -27,7 +27,10 @@ For convenience, the user creation file is also available in the `extras` folder
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
 kubectl apply -f extras
-kubectl proxy # to start the server
+# get token (copied to clipboard):
+kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}" | pbcopy
+# to start the server:
+kubectl proxy
 ```
 
 Full instructions (which are subject to change) can be found here:
