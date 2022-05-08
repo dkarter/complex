@@ -7,6 +7,7 @@ on:
 
 jobs:
   docker:
+    name: Build & Push Docker Images
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
@@ -18,23 +19,50 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Client Image Meta
+        id: clientMeta
+        uses: docker/metadata-action@v4
+        with:
+          images: dkarter/multi-docker-client
+          tags: |
+            latest
+            type=sha
+
       - name: Build and push client
         uses: docker/build-push-action@v2
         with:
           context: '{{defaultContext}}:client'
           push: true
-          tags: dkarter/multi-docker-client:latest
+          tags: ${{ steps.clientMeta.outputs.tags }}
+
+      - name: Server Image Meta
+        id: serverMeta
+        uses: docker/metadata-action@v4
+        with:
+          images: dkarter/multi-docker-server
+          tags: |
+            latest
+            type=sha
 
       - name: Build and push server
         uses: docker/build-push-action@v2
         with:
           context: '{{defaultContext}}:server'
           push: true
-          tags: dkarter/multi-docker-server:latest
+          tags: ${{ steps.serverMeta.outputs.tags }}
+
+      - name: Worker Image Meta
+        id: workerMeta
+        uses: docker/metadata-action@v4
+        with:
+          images: dkarter/multi-docker-worker
+          tags: |
+            latest
+            type=sha
 
       - name: Build and push worker
         uses: docker/build-push-action@v2
         with:
           context: '{{defaultContext}}:worker'
           push: true
-          tags: dkarter/multi-docker-worker:latest
+          tags: ${{ steps.workerMeta.outputs.tags }}
