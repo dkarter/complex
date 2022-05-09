@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: client-deployment
+
+spec:
+  # how many of those pods to make
+  replicas: 3
+  selector:
+    matchLabels:
+      component: web
+
+  # configuration that will be used for every pod in this deployment
+  template:
+    metadata:
+      labels:
+        component: web
+
+    spec:
+      containers:
+        - name: client
+          image: dkarter/multi-docker-client
+          ports:
+            - containerPort: 3000
